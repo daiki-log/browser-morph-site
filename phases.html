@@ -1,0 +1,134 @@
+﻿<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Morph Browser 17 Phases — 17フェーズ一覧。各フェーズの難易度・攻略ヒントを確認できます。"
+    />
+    <title>フェーズ一覧 | Morph Browser 17 Phases</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+
+    <!-- ── Navigation ── -->
+    <nav class="nav">
+      <a class="nav-logo" href="index.html"
+        >MORPH BROWSER<span>: 17 Phases</span></a
+      >
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="index.html" data-i18n="nav.home">ホーム</a></li>
+          <li><a href="phases.html" data-i18n="nav.phases">フェーズ一覧</a></li>
+        </ul>
+        <div class="anim-toggle" aria-label="アニメーション強度">
+          <button class="anim-btn" data-anim="subtle">S</button>
+          <button class="anim-btn" data-anim="expressive">E</button>
+        </div>
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="ja">JA</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <label
+          for="nav-toggle"
+          class="nav-hamburger"
+          aria-label="メニューを開く"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
+    </nav>
+
+    <div class="nav-overlay">
+      <label
+        for="nav-toggle"
+        class="nav-overlay-close"
+        aria-label="メニューを閉じる"
+        >✕</label
+      >
+      <nav class="nav-overlay-inner">
+        <a href="index.html" data-i18n="nav.home">ホーム</a>
+        <a href="phases.html" data-i18n="nav.phases">フェーズ一覧</a>
+        <div class="anim-toggle" aria-label="アニメーション強度">
+          <button class="anim-btn" data-anim="subtle">S</button>
+          <button class="anim-btn" data-anim="expressive">E</button>
+        </div>
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="ja">JA</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- ── Page Header ── -->
+    <div class="page-header">
+      <div class="container">
+        <p class="section-label" data-i18n="phases.page.label">ALL PHASES</p>
+        <h1 class="page-title">
+          <span class="accent" data-i18n="phases.page.title">フェーズ一覧</span>
+        </h1>
+        <p
+          class="section-desc"
+          style="margin-top: 0.75rem"
+          data-i18n="phases.page.desc"
+        >
+          各フェーズをクリックすると詳細と攻略ヒントを見ることができます。
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Phase Grid ── -->
+    <section class="section" style="padding-top: 2rem">
+      <div class="container">
+        <div class="grid grid-3" id="phase-grid"></div>
+      </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer>
+      <p class="footer-copy" data-i18n="footer.copy">
+        © 2026 Morph Browser 17 Phases
+      </p>
+    </footer>
+
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+      function renderGrid() {
+        const grid = document.getElementById("phase-grid");
+        grid.innerHTML = "";
+        PHASE_DATA.forEach((ph) => {
+          const d = ph[currentLang] || ph.ja;
+          const card = document.createElement("a");
+          card.href = `phase/${ph.id}.html`;
+          card.className = "card phase-card";
+          card.innerHTML = `
+          <div class="phase-card-header">
+            <img class="phase-icon" src="assets/achievements/${ph.id}.png" alt="${ph.name}">
+            <div>
+              <div class="phase-number">PHASE ${String(ph.id).padStart(2, "0")}</div>
+              <div class="phase-name">${ph.name}</div>
+            </div>
+          </div>
+          <p class="phase-desc">${d.desc}</p>
+          <div class="difficulty">${renderStars(ph.difficulty)}</div>
+        `;
+          grid.appendChild(card);
+        });
+      }
+
+      /* Re-render on language change */
+      const _origSetLang = setLang;
+      setLang = function (lang) {
+        _origSetLang(lang);
+        renderGrid();
+      };
+
+      renderGrid();
+    </script>
+  </body>
+</html>

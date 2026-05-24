@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Morph Browser — ブラウザウィンドウ自体がパズル。ズーム・移動・リサイズを操り、ボールをゴールへ導く全35ステージのパズルゲーム。" />
+    <meta property="og:title" content="Morph Browser" />
+    <meta property="og:description" content="ブラウザウィンドウ自体がパズル。全35ステージのElectronパズルゲーム。" />
+    <meta property="og:type" content="website" />
+    <title>Morph Browser</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+
+    <!-- ── Navigation ── -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">
+            <img src="assets/image/logo.png" alt="MORPH BROWSER" class="nav-logo-img" />
+        </a>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="nav.home">ホーム</a></li>
+                <li><a href="phases.html" data-i18n="nav.phases">フェーズ一覧</a></li>
+            </ul>
+            <div class="anim-toggle" aria-label="アニメーション強度">
+                <button class="anim-btn" data-anim="subtle">S</button>
+                <button class="anim-btn" data-anim="expressive">E</button>
+            </div>
+            <div class="lang-toggle">
+                <button class="lang-btn" data-lang="ja">JA</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+            <label for="nav-toggle" class="nav-hamburger" aria-label="メニューを開く">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+        </div>
+    </nav>
+
+    <div class="nav-overlay">
+        <label for="nav-toggle" class="nav-overlay-close" aria-label="メニューを閉じる">✕</label>
+        <nav class="nav-overlay-inner">
+            <a href="index.html" data-i18n="nav.home">ホーム</a>
+            <a href="phases.html" data-i18n="nav.phases">フェーズ一覧</a>
+            <div class="anim-toggle" aria-label="アニメーション強度">
+                <button class="anim-btn" data-anim="subtle">S</button>
+                <button class="anim-btn" data-anim="expressive">E</button>
+            </div>
+            <div class="lang-toggle">
+                <button class="lang-btn" data-lang="ja">JA</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- ── Hero ── -->
+    <section class="hero">
+        <div class="hero-slideshow">
+            <div class="slideshow-track" id="slideshow-track"></div>
+            <button class="slideshow-btn slideshow-prev" id="slideshow-prev" aria-label="前へ">&#8249;</button>
+            <button class="slideshow-btn slideshow-next" id="slideshow-next" aria-label="次へ">&#8250;</button>
+            <div class="slideshow-dots" id="slideshow-dots"></div>
+        </div>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
+            ブラウザウィンドウ自体がパズル。<br />ズーム・移動・リサイズを操り、ボールをゴールへ導け。
+        </p>
+        <div class="hero-actions">
+            <a href="phases.html" class="btn btn-primary" data-i18n="hero.cta.phases">フェーズ一覧を見る</a>
+            <a href="#about" class="btn btn-outline" data-i18n="hero.cta.about">ゲームとは</a>
+        </div>
+    </section>
+
+    <!-- ── What is this game? ── -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="what-grid">
+                <div class="what-text">
+                    <p class="section-label" data-i18n="what.label">ABOUT</p>
+                    <h2 class="section-title" data-i18n="what.title">
+                        このゲームについて
+                    </h2>
+                    <p class="what-body" data-i18n="what.desc">
+                        Morph Browser
+                        は、ブラウザウィンドウの位置・サイズ・ズームを操作してボールをゴールへ運ぶ、全17ステージのパズルゲームです。
+                    </p>
+                    <div class="what-stats">
+                        <div class="stat-card">
+                            <div class="stat-num">35</div>
+                            <div class="stat-label">STAGES</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">17</div>
+                            <div class="stat-label">PHASES</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">∞</div>
+                            <div class="stat-label">RETRIES</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="what-video">
+                    <iframe id="trailer-iframe" class="trailer-video"
+                        src="https://www.youtube.com/embed/IUQiamwd-Z4"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Features ── -->
+    <section class="section">
+        <div class="container">
+            <p class="section-label" data-i18n="features.label">FEATURES</p>
+            <h2 class="section-title" data-i18n="features.title">
+                独自のメカニクス
+            </h2>
+            <p class="section-desc" data-i18n="features.desc">
+                ステージごとに異なるルールがプレイヤーを翻弄する。
+            </p>
+
+            <div class="grid grid-3 features-grid">
+                <div class="card feature-card">
+                    <div class="feature-icon">🪟</div>
+                    <div class="feature-name" data-i18n="feat.1.name">
+                        ウィンドウ移動
+                    </div>
+                    <div class="feature-desc" data-i18n="feat.1.desc">
+                        ウィンドウ自体を動かしてボールを捕捉・誘導する。
+                    </div>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-name" data-i18n="feat.2.name">ズーム操作</div>
+                    <div class="feature-desc" data-i18n="feat.2.desc">
+                        Ctrl+/-でズームを合わせて次元を共鳴させる。
+                    </div>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <div class="feature-name" data-i18n="feat.3.name">重力変化</div>
+                    <div class="feature-desc" data-i18n="feat.3.desc">
+                        画面の4方向に重力が変化し、物理法則が変わる。
+                    </div>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">🌓</div>
+                    <div class="feature-name" data-i18n="feat.4.name">
+                        ダーク/ライトモード
+                    </div>
+                    <div class="feature-desc" data-i18n="feat.4.desc">
+                        テーマ切り替えがゲームに直結する。
+                    </div>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">⏱</div>
+                    <div class="feature-name" data-i18n="feat.5.name">
+                        タイムアタック
+                    </div>
+                    <div class="feature-desc" data-i18n="feat.5.desc">
+                        制限時間内にクリアしないとリセットされる。
+                    </div>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">👁</div>
+                    <div class="feature-name" data-i18n="feat.6.name">透明ボール</div>
+                    <div class="feature-desc" data-i18n="feat.6.desc">
+                        ボールが消えてもミニマップを頼りに進む。
+                    </div>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">⤢</div>
+                    <div class="feature-name" data-i18n="feat.7.name">リサイズ制約</div>
+                    <div class="feature-desc" data-i18n="feat.7.desc">
+                        ウィンドウを指定のサイズに合わせて空間を再構築。
+                    </div>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">📋</div>
+                    <div class="feature-name" data-i18n="feat.8.name">
+                        タイトルヒント
+                    </div>
+                    <div class="feature-desc" data-i18n="feat.8.desc">
+                        タイトルバーに隠された答えを読み解く。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Phases mini ── -->
+    <section class="section">
+        <div class="container">
+            <p class="section-label" data-i18n="phases.label">PHASES</p>
+            <h2 class="section-title" data-i18n="phases.title">17のフェーズ</h2>
+            <p class="section-desc" data-i18n="phases.desc">
+                3ステージ×17フェーズ＝全51 +
+                αステージ。各フェーズが新たな操作ルールを課す。
+            </p>
+
+            <div class="phases-scroll" id="phases-scroll" style="margin-top: 2rem"></div>
+
+            <div class="phases-section-actions">
+                <a href="phases.html" class="btn btn-primary" data-i18n="phases.cta">すべてのフェーズを見る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer>
+        <p class="footer-copy" data-i18n="footer.copy">© 2026 Morph Browser</p>
+    </footer>
+
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        (function () {
+            const el = document.getElementById("phases-scroll");
+            PHASE_DATA.forEach((ph) => {
+                const card = document.createElement("a");
+                card.href = `phase/${ph.id}.html`;
+                card.className = "card mini-phase-card";
+                card.innerHTML = `
+          <img src="assets/achievements/${ph.id}.png" alt="${ph.name}">
+          <span class="mini-phase-num">PHASE ${String(ph.id).padStart(2, "0")}</span>
+          <span class="mini-phase-name">${ph.name}</span>
+        `;
+                el.appendChild(card);
+            });
+        })();
+    </script>
+
+    <script>
+        (function () {
+            const SLIDE_IMAGES = {
+                ja: [
+                    "assets/image/ja/title_japanese.jpg",
+                    "assets/image/ja/go_japanese.jpg",
+                    "assets/image/ja/goal_japanese.jpg",
+                    "assets/image/ja/ingoal_japanese.jpg",
+                    "assets/image/ja/gimic_japanese.jpg",
+                ],
+                en: [
+                    "assets/image/en/title_english.jpg",
+                    "assets/image/en/st1_english.jpg",
+                    "assets/image/en/clear_english.jpg",
+                    "assets/image/en/ingoal_english.jpg",
+                    "assets/image/en/gimic_english.jpg",
+                ],
+            };
+
+            const track = document.getElementById("slideshow-track");
+            const dotsEl = document.getElementById("slideshow-dots");
+            const prevBtn = document.getElementById("slideshow-prev");
+            const nextBtn = document.getElementById("slideshow-next");
+
+            let current = 0;
+            let autoTimer = null;
+
+            function renderSlides(lang) {
+                const srcs = SLIDE_IMAGES[lang] || SLIDE_IMAGES.ja;
+                track.innerHTML = "";
+                dotsEl.innerHTML = "";
+                current = 0;
+                srcs.forEach(function (src, i) {
+                    const img = document.createElement("img");
+                    img.src = src;
+                    img.alt = "Screenshot " + (i + 1);
+                    track.appendChild(img);
+
+                    const dot = document.createElement("button");
+                    dot.className = "slideshow-dot" + (i === 0 ? " active" : "");
+                    dot.addEventListener("click", function () { goTo(i); });
+                    dotsEl.appendChild(dot);
+                });
+                applySlide();
+                resetAuto();
+            }
+
+            function goTo(index) {
+                const count = track.querySelectorAll("img").length;
+                current = (index + count) % count;
+                applySlide();
+                resetAuto();
+            }
+
+            function applySlide() {
+                track.style.transform = "translateX(-" + (current * 100) + "%)";
+                dotsEl.querySelectorAll(".slideshow-dot").forEach(function (d, i) {
+                    d.classList.toggle("active", i === current);
+                });
+            }
+
+            function resetAuto() {
+                clearInterval(autoTimer);
+                autoTimer = setInterval(function () { goTo(current + 1); }, 4000);
+            }
+
+            prevBtn.addEventListener("click", function () { goTo(current - 1); });
+            nextBtn.addEventListener("click", function () { goTo(current + 1); });
+
+            const _origSetLang = setLang;
+            setLang = function (lang) {
+                _origSetLang(lang);
+                renderSlides(lang);
+            };
+
+            renderSlides(localStorage.getItem("bm-lang") || "ja");
+        })();
+    </script>
+
+    <script>
+        (function () {
+            const VIDEO_IDS = {
+                ja: "IUQiamwd-Z4",
+                en: "48qNjp1e2qQ",
+            };
+            const iframe = document.getElementById("trailer-iframe");
+
+            function setVideoLang(lang) {
+                const id = VIDEO_IDS[lang] || VIDEO_IDS.ja;
+                iframe.src = "https://www.youtube.com/embed/" + id;
+            }
+
+            const _origSetLang = setLang;
+            setLang = function (lang) {
+                _origSetLang(lang);
+                setVideoLang(lang);
+            };
+
+            setVideoLang(localStorage.getItem("bm-lang") || "ja");
+        })();
+    </script>
+</body>
+
+</html>

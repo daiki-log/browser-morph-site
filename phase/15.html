@@ -1,0 +1,186 @@
+﻿<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Phase N | Morph Browser 17 Phases</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
+  <body>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+
+    <!-- ── Navigation ── -->
+    <nav class="nav">
+      <a class="nav-logo" href="../index.html"
+        >MORPH BROWSER<span>: 17 Phases</span></a
+      >
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../index.html" data-i18n="nav.home">ホーム</a></li>
+          <li>
+            <a href="../phases.html" data-i18n="nav.phases">フェーズ一覧</a>
+          </li>
+        </ul>
+        <div class="anim-toggle" aria-label="アニメーション強度">
+          <button class="anim-btn" data-anim="subtle">S</button>
+          <button class="anim-btn" data-anim="expressive">E</button>
+        </div>
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="ja">JA</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <label
+          for="nav-toggle"
+          class="nav-hamburger"
+          aria-label="メニューを開く"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
+    </nav>
+
+    <div class="nav-overlay">
+      <label
+        for="nav-toggle"
+        class="nav-overlay-close"
+        aria-label="メニューを閉じる"
+        >✕</label
+      >
+      <nav class="nav-overlay-inner">
+        <a href="../index.html" data-i18n="nav.home">ホーム</a>
+        <a href="../phases.html" data-i18n="nav.phases">フェーズ一覧</a>
+        <div class="anim-toggle" aria-label="アニメーション強度">
+          <button class="anim-btn" data-anim="subtle">S</button>
+          <button class="anim-btn" data-anim="expressive">E</button>
+        </div>
+        <div class="lang-toggle">
+          <button class="lang-btn" data-lang="ja">JA</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- ── Page Header ── -->
+    <div class="page-header">
+      <div class="container">
+        <a
+          href="../phases.html"
+          class="phase-nav-btn"
+          style="display: inline-flex; margin-bottom: 1.5rem"
+        >
+          <span class="arrow">←</span>
+          <span data-i18n="phase.back">フェーズ一覧へ</span>
+        </a>
+        <div class="phase-detail-header" id="phase-header"></div>
+      </div>
+    </div>
+
+    <!-- ── Content ── -->
+    <section class="section" style="padding-top: 1.5rem">
+      <div class="container">
+        <div class="grid grid-2" style="gap: 2rem; align-items: start">
+          <!-- Tips -->
+          <div class="card" style="padding: 1.75rem">
+            <p class="section-label" data-i18n="phase.tips.title">攻略のコツ</p>
+            <ul class="tips-list" id="tips-list"></ul>
+          </div>
+
+          <!-- SYSTEM LOG -->
+          <div
+            class="card terminal-card"
+            id="system-terminal"
+            style="padding: 1.75rem"
+          >
+            <p class="section-label terminal-label">SYSTEM LOG</p>
+            <pre class="terminal-output" id="system-output"></pre>
+          </div>
+        </div>
+
+        <!-- Phase nav -->
+        <div class="phase-nav" id="phase-nav"></div>
+      </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer>
+      <p class="footer-copy" data-i18n="footer.copy">
+        © 2026 Morph Browser 17 Phases
+      </p>
+    </footer>
+
+    <script src="../assets/js/i18n.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+      /* Detect phase ID from filename (e.g. "7.html" → 7) */
+      const PHASE_ID = parseInt(location.pathname.split("/").pop(), 10);
+
+      function renderPage() {
+        const ph = getPhase(PHASE_ID);
+        const d = ph[currentLang] || ph.ja;
+
+        /* <title> */
+        document.getElementById("page-title").textContent =
+          `Phase ${String(ph.id).padStart(2, "0")}: ${ph.name} | Morph Browser`;
+
+        /* Header */
+        document.getElementById("phase-header").innerHTML = `
+        <img class="phase-detail-icon" src="../assets/achievements/${ph.id}.png" alt="${ph.name}">
+        <div class="phase-detail-meta">
+          <span class="phase-detail-num">PHASE ${String(ph.id).padStart(2, "0")} / 17</span>
+          <h1 class="phase-detail-name">${ph.name}</h1>
+          <span class="phase-detail-lore">${ph.lore}</span>
+          <div class="difficulty" style="margin-top:0.5rem;">${renderStars(ph.difficulty)}</div>
+        </div>
+      `;
+
+        /* Tips */
+        const tipsList = document.getElementById("tips-list");
+        tipsList.innerHTML = "";
+        d.tips.forEach((tip) => {
+          const li = document.createElement("li");
+          li.className = "tip-item";
+          li.textContent = tip;
+          tipsList.appendChild(li);
+        });
+
+        /* SYSTEM terminal */
+        const msg = ph.systemMsg?.[currentLang] || ph.systemMsg?.ja || "";
+        document.getElementById("system-output").textContent = msg;
+        const card = document.getElementById("system-terminal");
+        card.classList.toggle("corrupted", ph.id >= 13);
+        card.classList.toggle("critical", ph.id >= 17);
+
+        /* Phase nav */
+        const nav = document.getElementById("phase-nav");
+        nav.innerHTML = "";
+        if (ph.id > 1) {
+          nav.innerHTML += `
+          <a href="${ph.id - 1}.html" class="phase-nav-btn">
+            <span class="arrow">←</span> Phase ${String(ph.id - 1).padStart(2, "0")}
+          </a>`;
+        } else {
+          nav.innerHTML += `<span></span>`;
+        }
+        if (ph.id < 17) {
+          nav.innerHTML += `
+          <a href="${ph.id + 1}.html" class="phase-nav-btn">
+            Phase ${String(ph.id + 1).padStart(2, "0")} <span class="arrow">→</span>
+          </a>`;
+        } else {
+          nav.innerHTML += `<span></span>`;
+        }
+      }
+
+      /* Re-render on language change */
+      const _origSetLang = setLang;
+      setLang = function (lang) {
+        _origSetLang(lang);
+        renderPage();
+      };
+
+      renderPage();
+    </script>
+  </body>
+</html>
