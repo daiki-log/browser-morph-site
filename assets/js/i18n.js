@@ -10,6 +10,7 @@ const TRANSLATIONS = {
     "hero.title.sub": ": 17 Phases",
     "hero.subtitle":
       "ブラウザウィンドウ自体がパズル。ズーム・移動・リサイズ。ボールをゴールへ導け。",
+    "hero.cta.steam": "Steamで入手",
     "hero.cta.phases": "フェーズ一覧を見る",
     "hero.cta.about": "ゲームについて",
 
@@ -50,6 +51,7 @@ const TRANSLATIONS = {
     /* ── Footer ── */
     "footer.copy": "© 2026 Morph Browser",
     "footer.github": "GitHub",
+    "footer.steam": "Steamストアページ",
 
     /* ── Phases page ── */
     "phases.page.label": "ALL PHASES",
@@ -73,6 +75,7 @@ const TRANSLATIONS = {
     "hero.title.sub": ": 17 Phases",
     "hero.subtitle":
       "The browser window IS the puzzle. Manipulate zoom, position, resize, and OS settings to guide the ball to the goal.",
+    "hero.cta.steam": "Get it on Steam",
     "hero.cta.phases": "View All Phases",
     "hero.cta.about": "What is this?",
 
@@ -117,6 +120,7 @@ const TRANSLATIONS = {
     /* ── Footer ── */
     "footer.copy": "© 2026 Morph Browser",
     "footer.github": "GitHub",
+    "footer.steam": "Steam Store Page",
 
     /* ── Phases page ── */
     "phases.page.label": "ALL PHASES",

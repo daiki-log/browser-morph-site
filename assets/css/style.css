@@ -305,6 +305,21 @@ ul { list-style: none; }
   transform: translateY(-2px);
 }
 
+.btn-steam {
+  background: #1b2838;
+  color: #c7d5e0;
+  border-color: #4c6b8a;
+  gap: 0.5em;
+}
+
+.btn-steam:hover {
+  background: #2a475e;
+  border-color: #66c0f4;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(102, 192, 244, 0.4);
+  transform: translateY(-2px);
+}
+
 /* ── Section Headers ─────────────────────────────────────── */
 .section-label {
   font-family: var(--font-mono);
